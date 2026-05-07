@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+    prefHeight="700.0"
+    prefWidth="1100.0"
+    style="-fx-background-color: #f5f3ee;"
+    xmlns="http://javafx.com/javafx/26"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.jairus.qcu_attendance.AdminDashboard">
+
+    <children>
+        <VBox
+            prefWidth="1100.0"
+            AnchorPane.topAnchor="0"
+            AnchorPane.bottomAnchor="0"
+            AnchorPane.leftAnchor="0"
+            AnchorPane.rightAnchor="0">
+
+            <!-- SCHOOL HEADER BANNER -->
+            <HBox
+                alignment="CENTER"
+                prefHeight="85"
+                spacing="15"
+                style="-fx-background-color: #1107e7; -fx-padding: 12 20;">
+
+                <ImageView fx:id="leftLogo" fitHeight="60" fitWidth="60" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../../qcu_logo.png" />
+                    </image>
+                </ImageView>
+
+                <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                    <Label
+                        text="QUEZON CITY UNIVERSITY"
+                        textFill="white"
+                        style="-fx-font-size: 22; -fx-font-weight: bold;" />
+                    <Label
+                        text="COLLEGE OF COMPUTER SCIENCE AND INFORMATION TECHNOLOGY"
+                        textFill="white"
+                        style="-fx-font-size: 10;" />
+                </VBox>
+
+                <ImageView fx:id="rightLogo" fitHeight="60" fitWidth="106" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../../comStudies_logo.png" />
+                    </image>
+                </ImageView>
+
+            </HBox>
+
+            <!-- MAIN PAGE CONTENT -->
+            <VBox spacing="15" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="20" bottom="20" left="25" right="25" />
+                </padding>
+
+                <!-- TOP ROW: Page title, date navigation, and action buttons -->
+                <HBox alignment="CENTER_LEFT" spacing="10" minHeight="40">
+
+                    <Label
+                        text="ATTENDANCE"
+                        minWidth="200"
+                        style="-fx-font-size: 26; -fx-font-weight: bold;" />
+
+                    <Label
+                        text="|"
+                        style="-fx-font-size: 22; -fx-text-fill: #aaa;" />
+
+                    <!-- Go to previous day -->
+                    <Button
+                        fx:id="btnPrevDate"
+                        text="❮"
+                        onAction="#handlePrevDate"
+                        style="-fx-background-color: transparent; -fx-font-size: 14; -fx-cursor: hand;" />
+
+                    <!-- Current date label — updated by controller -->
+                    <Label
+                        fx:id="lblDate"
+                        text="Wednesday, May 6, 2026"
+                        minWidth="220"
+                        style="-fx-font-size: 14; -fx-text-fill: #444;" />
+
+                    <!-- Go to next day -->
+                    <Button
+                        fx:id="btnNextDate"
+                        text="❯"
+                        onAction="#handleNextDate"
+                        style="-fx-background-color: transparent; -fx-font-size: 14; -fx-cursor: hand;" />
+
+                    <!-- Pushes the 3 buttons to the right side -->
+                    <HBox HBox.hgrow="ALWAYS" />
+
+                    <!-- Sends offline scans to the cloud database -->
+                    <Button
+                        fx:id="btnSyncToCloud"
+                        text="SYNC TO CLOUD"
+                        onAction="#handleSyncToCloud"
+                        minWidth="130"
+                        style="-fx-background-color: #28a745;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 12;
+                               -fx-background-radius: 6;
+                               -fx-padding: 8 16;
+                               -fx-cursor: hand;" />
+
+                    <!-- Reloads the attendance table data -->
+                    <Button
+                        fx:id="btnRefresh"
+                        text="Refresh"
+                        onAction="#handleRefresh"
+                        minWidth="80"
+                        style="-fx-background-color: #222222;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 12;
+                               -fx-background-radius: 6;
+                               -fx-padding: 8 16;
+                               -fx-cursor: hand;" />
+
+                    <!-- Allows students to leave early for the day -->
+                    <Button
+                        fx:id="btnEarlyDismissal"
+                        text="Enable Early Dismissal"
+                        onAction="#handleEarlyDismissal"
+                        minWidth="190"
+                        style="-fx-background-color: #1B1A6B;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 12;
+                               -fx-background-radius: 6;
+                               -fx-padding: 8 16;
+                               -fx-cursor: hand;" />
+
+                </HBox>
+
+                <!-- SUMMARY CARDS ROW -->
+                <!-- These 4 cards show counts pulled from the DB by the controller -->
+                <HBox spacing="15">
+
+                    <!-- Card: Total number of enrolled students -->
+                    <VBox
+                        fx:id="cardTotal"
+                        prefWidth="220"
+                        spacing="4"
+                        style="-fx-background-color: #1B1A6B;
+                               -fx-background-radius: 14;
+                               -fx-padding: 16 20;">
+                        <Label
+                            text="Total Students"
+                            style="-fx-text-fill: #aac4ff; -fx-font-size: 12; -fx-font-weight: bold;" />
+                        <Label
+                            fx:id="lblTotalStudents"
+                            text="50"
+                            style="-fx-text-fill: white; -fx-font-size: 38; -fx-font-weight: bold;" />
+                    </VBox>
+
+                    <!-- Card: Present students split by On Time and Late -->
+                    <VBox
+                        fx:id="cardPresent"
+                        prefWidth="240"
+                        spacing="4"
+                        style="-fx-background-color: #2E2D9F;
+                               -fx-background-radius: 14;
+                               -fx-padding: 16 20;">
+                        <Label
+                            text="Present"
+                            style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" />
+                        <HBox alignment="CENTER_LEFT" spacing="18">
+                            <VBox alignment="CENTER">
+                                <Label text="On Time" style="-fx-text-fill: #aac4ff; -fx-font-size: 11;" />
+                                <Label fx:id="lblOnTime" text="5"
+                                       style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" />
+                            </VBox>
+                            <Label text="|" style="-fx-text-fill: white; -fx-font-size: 28; -fx-padding: 10 0 0 0;" />
+                            <VBox alignment="CENTER">
+                                <Label text="Late" style="-fx-text-fill: #aac4ff; -fx-font-size: 11;" />
+                                <Label fx:id="lblPresentLate" text="1"
+                                       style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Card: Absent students split by Unknown and Excused -->
+                    <VBox
+                        fx:id="cardAbsent"
+                        prefWidth="240"
+                        spacing="4"
+                        style="-fx-background-color: #1B1A6B;
+                               -fx-background-radius: 14;
+                               -fx-padding: 16 20;">
+                        <Label
+                            text="Absent"
+                            style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" />
+                        <HBox alignment="CENTER_LEFT" spacing="18">
+                            <VBox alignment="CENTER">
+                                <Label text="Unknown" style="-fx-text-fill: #aac4ff; -fx-font-size: 11;" />
+                                <Label fx:id="lblUnknown" text="1"
+                                       style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" />
+                            </VBox>
+                            <Label text="|" style="-fx-text-fill: white; -fx-font-size: 28; -fx-padding: 10 0 0 0;" />
+                            <VBox alignment="CENTER">
+                                <Label text="Excused" style="-fx-text-fill: #aac4ff; -fx-font-size: 11;" />
+                                <Label fx:id="lblExcused" text="0"
+                                       style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Card: Total late arrivals for the day -->
+                    <VBox
+                        fx:id="cardLate"
+                        prefWidth="220"
+                        spacing="4"
+                        style="-fx-background-color: #1B1A6B;
+                               -fx-background-radius: 14;
+                               -fx-padding: 16 20;">
+                        <Label
+                            text="Late"
+                            style="-fx-text-fill: #aac4ff; -fx-font-size: 12; -fx-font-weight: bold;" />
+                        <Label
+                            fx:id="lblLate"
+                            text="1"
+                            style="-fx-text-fill: white; -fx-font-size: 38; -fx-font-weight: bold;" />
+                    </VBox>
+
+                </HBox>
+
+                <!-- SEARCH BAR — filters the table below in real time -->
+                <HBox alignment="CENTER_LEFT">
+                    <TextField
+                        fx:id="searchField"
+                        promptText="Search Student..."
+                        prefWidth="400"
+                        onKeyReleased="#handleSearch"
+                        style="-fx-background-radius: 20;
+                               -fx-border-radius: 20;
+                               -fx-border-color: #ccc;
+                               -fx-padding: 8 18;
+                               -fx-font-size: 13;" />
+                </HBox>
+
+                <!-- ATTENDANCE TABLE -->
+                <!-- Status column text color (green/red/orange) is set in the controller -->
+                <!-- Table header color is handled in attendance.css -->
+                <TableView
+                    fx:id="attendanceTable"
+                    prefWidth="1050"
+                    VBox.vgrow="ALWAYS"
+                    styleClass="attendance-table">
+                    <columns>
+                        <TableColumn fx:id="colName"    text="Full Name" prefWidth="250" />
+                        <TableColumn fx:id="colId"      text="ID"        prefWidth="120" />
+                        <TableColumn fx:id="colSection" text="Section"   prefWidth="130" />
+                        <TableColumn fx:id="colTimeIn"  text="Time-in"   prefWidth="130" />
+                        <TableColumn fx:id="colDate"    text="Date"      prefWidth="160" />
+                        <TableColumn fx:id="colStatus"  text="Status"    prefWidth="130" />
+                    </columns>
+                </TableView>
+
+            </VBox>
+        </VBox>
+    </children>
+</AnchorPane>
