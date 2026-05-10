@@ -1,27 +1,120 @@
-/* Blue table column headers */
-.attendance-table .column-header-background {
-    -fx-background-color: #1B1A6B;
+/*  COLORS  */
+.root {
+    -fx-accent: #f5f3ee;
+    -fx-focus-color: transparent;
 }
-.attendance-table .column-header,
-.attendance-table .filler {
+
+/*  TAB  */
+.tab-pane .tab-header-area .tab {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    -fx-padding: 10 25;
 }
-.attendance-table .column-header .label {
+
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: #1107e7;
+    -fx-border-width: 0 0 4 0; /* Bottom border for active tab */
+}
+
+.tab .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #7f8c8d;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #1107e7;
+}
+
+/*   CARDS  */
+.card {
+    -fx-padding: 15;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 4);
+}
+
+.card-title {
+    -fx-text-fill: rgba(255,255,255,0.8);
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
+
+.card-number {
+    -fx-text-fill: white;
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+
+/* Specific Card Gradients */
+.card-total   { -fx-background-color: linear-gradient(to bottom right, #1B1A6B, #3B39A0); }
+.card-present { -fx-background-color: linear-gradient(to bottom right, #27ae60, #2ecc71); }
+.card-late    { -fx-background-color: linear-gradient(to bottom right, #f39c12, #f1c40f); }
+.card-absent  { -fx-background-color: linear-gradient(to bottom right, #c0392b, #e74c3c); }
+
+/*  BUTTONS  */
+.btn-primary {
+    -fx-background-color: #1107e7;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-secondary {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.btn-confirm {
+    -fx-background-color: #27ae60;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 12px;
+    -fx-background-radius: 6;
 }
 
-/* Alternating row colors */
-.attendance-table .table-row-cell:odd {
-    -fx-background-color: #f9f9f9;
+/*  TOGGLE BUTTON  */
+.toggle-btn {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
 }
-.attendance-table .table-row-cell:even {
+
+.toggle-btn:selected {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+/*  FORM at INPUTS  */
+.form-box {
     -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 10;
+    -fx-border-color: #dfe6e9;
+    -fx-border-radius: 10;
 }
 
-/* Remove blue focus border on the table */
-.attendance-table:focused {
-    -fx-border-color: transparent;
+.search-input {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 8 15;
+}
+
+/*  TABLE VIEW  */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #dfe6e9;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: #eee;
+    -fx-border-width: 0 1 1 0;
 }
